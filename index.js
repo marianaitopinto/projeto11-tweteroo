@@ -8,7 +8,7 @@ app.use(express.json());
 
 const users = [
     {
-        username: 'bobesponja',
+        username: "bobesponja",
         avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
     },
 ];
@@ -23,8 +23,12 @@ const tweets = [
 
 app.post('/sign-up', (req, res) => {
     const user = req.body;
-    users.push(user);
-    res.send('ok');
+    if (user.username.length !== 0 && user.avatar.length !== 0) {
+        users.push(user);
+        res.status(201).send("ok");
+    } else {
+        res.status(400).send("Todos os campos são obrigatórios!");
+    }
 });
 
 app.post('/tweets', (req, res) => {
@@ -33,8 +37,12 @@ app.post('/tweets', (req, res) => {
         tweet: req.body.tweet,
         avatar: users.find((user) => user.username === req.body.username).avatar,
     };
+    if (tweet.username.length !== 0 && tweet.tweet.length !== 0) {
     tweets.push(tweet);
-    res.send('ok');
+    res.status(201).send("ok");
+    } else {
+        res.status(400).send("Todos os campos são obrigatórios!");
+    }
 });
 
 app.get('/tweets', (req, res) => {
