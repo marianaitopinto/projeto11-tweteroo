@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import chalk from 'chalk';
 
 const app = express();
 app.use(cors());
@@ -37,7 +38,7 @@ app.post('/tweets', (req, res) => {
 });
 
 app.get('/tweets', (req, res) => {
-    tweets.length <= 10 ? res.send(tweets) : res.send(tweets.slice(tweets.length - 10, tweets.length)); 
+    tweets.length <= 10 ? res.send(tweets) : res.send(tweets.slice(tweets.length - 10, tweets.length));
 });
 
-app.listen(5000);
+app.listen(5000, () => console.log(chalk.bold.magenta("Loading...")));
