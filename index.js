@@ -27,11 +27,17 @@ app.post('/sign-up', (req, res) => {
 });
 
 app.post('/tweets', (req, res) => {
-    const tweet = req.body;
-    tweets.push(tweet)
+    const tweet = {
+        username: req.body.username,
+        tweet: req.body.tweet,
+        avatar: users.find((user) => user.username === req.body.username).avatar,
+    };
+    tweets.push(tweet);
     res.send('ok');
 });
 
-
+app.get('/tweets', (req, res) => {
+    tweets.length <= 10 ? res.send(tweets) : res.send(tweets.slice(tweets.length - 10, tweets.length)); 
+});
 
 app.listen(5000);
